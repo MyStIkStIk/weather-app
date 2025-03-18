@@ -4,6 +4,7 @@ import {environment} from '../environment/environment';
 import {BehaviorSubject, map, Observable, tap} from 'rxjs';
 import {KeyValue} from '@angular/common';
 import {OtherInfoModel, TemperatureModel, WeatherModel, WindModel} from '../models/WeatherModel';
+import {MessageService} from 'primeng/api';
 
 @Injectable(
   {
@@ -12,6 +13,7 @@ import {OtherInfoModel, TemperatureModel, WeatherModel, WindModel} from '../mode
 )
 export class WeatherApiService {
   private readonly http = inject(HttpClient);
+  private readonly messageService = inject(MessageService);
 
   private cache = new Map<string, { timestamp: number; data: WeatherModel }>();
   private cacheDuration = 10 * 60 * 1000;
@@ -74,7 +76,9 @@ export class WeatherApiService {
         })
       ).subscribe(
       data => this.setWeatherInfo(data),
-      error => console.error('Помилка запиту:', error)
+      error => {
+        this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.message});
+      }
     );
   }
 

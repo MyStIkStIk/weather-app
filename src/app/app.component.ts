@@ -3,6 +3,7 @@ import {WeatherApiService} from './shared/services/WeatherApi.service';
 import {AutoCompleteComponent} from './shared/components/auto-complete/auto-complete.component';
 import {WeatherInfoComponent} from './shared/components/weather-info/weather-info.component';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {Toast} from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   templateUrl: './app.component.html',
   imports: [
     AutoCompleteComponent,
-    WeatherInfoComponent
+    WeatherInfoComponent,
+    Toast
   ],
   styleUrl: './app.component.scss'
 })
