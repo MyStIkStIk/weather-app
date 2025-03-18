@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../environment/environment';
-import {BehaviorSubject, map, Observable, of, tap} from 'rxjs';
-import {KeyValue, KeyValuePipe} from '@angular/common';
+import {BehaviorSubject, map, Observable, tap} from 'rxjs';
+import {KeyValue} from '@angular/common';
 import {OtherInfoModel, TemperatureModel, WeatherModel, WindModel} from '../models/WeatherModel';
 
 @Injectable(
