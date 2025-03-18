@@ -1,0 +1,27 @@
+<ng-container *ngIf="weatherApiService.$weatherInfo | async as weatherInfo">
+  <div class="weather-info">
+    <h3>{{ weatherInfo.city }}</h3>
+    <img [src]="environment.weatherApiImgUrl + weatherInfo.icon + '.png'" alt="weather icon">
+    <div class="weather-info__container">
+      <div class="weather-info__item">
+        <p>Temperature:</p>
+        <p>{{ weatherInfo.temperature.temp }}°C</p>
+        <p>Feels like {{ weatherInfo.temperature.feels }}°C</p>
+        <p>Min - {{ weatherInfo.temperature.min }}</p>
+        <p>Max - {{ weatherInfo.temperature.max }}</p>
+      </div>
+      <div class="weather-info__item">
+        <p>Wind:</p>
+        <p>{{ weatherInfo.wind.speed }} m/s
+          <span [innerHtml]="weatherInfo.wind.deg | windDirection"></span>
+        </p>
+      </div>
+      <div class="weather-info__item">
+        <p>Other:</p>
+        <p>Humidity - {{ weatherInfo.otherInfo.humidity }}%</p>
+        <p>Pressure - {{ weatherInfo.otherInfo.pressure }} m</p>
+
+      </div>
+    </div>
+  </div>
+</ng-container>

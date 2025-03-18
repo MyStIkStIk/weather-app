@@ -1,0 +1,3 @@
+<p-auto-complete [(ngModel)]="selectedItem" [suggestions]="items" optionLabel="value"
+                 [minLength]="minSearchLength" (onSelect)="onSelect($event.value)"
+                 (completeMethod)="getItems($event)"/>

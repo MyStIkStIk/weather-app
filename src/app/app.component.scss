@@ -1,0 +1,75 @@
+.weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: 15px;
+
+  background-color: #3498db;
+
+  transition: background-color 0.5s;
+
+  &.thunderstorm {
+    background-color: #4b4b82;
+  }
+
+  &.drizzle {
+    background-color: #6d7b8d;
+  }
+
+  &.rain {
+    background-color: #3a4a5e;
+  }
+
+  &.snow {
+    background-color: #cdd2d6;
+  }
+
+  &.clear {
+    background-color: #3498db;
+  }
+
+  &.clouds {
+    background-color: #a0a8a9;
+  }
+
+  &.mist {
+    background-color: #798b9a;
+  }
+
+  &.smoke {
+    background-color: #5a6468;
+  }
+
+  &.haze {
+    background-color: #a5b0b5;
+  }
+
+  &.dust {
+    background-color: #b35900;
+  }
+
+  &.fog {
+    background-color: #6b787a;
+  }
+
+  &.sand {
+    background-color: #c4731d;
+  }
+
+  &.ash {
+    background-color: #3b3f40;
+  }
+
+  &.squall {
+    background-color: #415060;
+  }
+
+  &.tornado {
+    background-color: #5a4d9e;
+  }
+}
+
+app-auto-complete {
+  margin-top: 250px;
+}
