@@ -15,12 +15,13 @@
         <p>{{ weatherInfo.wind.speed }} m/s
           <span [innerHtml]="weatherInfo.wind.deg | windDirection"></span>
         </p>
+        <p>Gust - {{weatherInfo.wind.gust}} m/s</p>
       </div>
       <div class="weather-info__item">
         <p>Other:</p>
         <p>Humidity - {{ weatherInfo.otherInfo.humidity }}%</p>
-        <p>Pressure - {{ weatherInfo.otherInfo.pressure }} m</p>
-
+        <p>Pressure - {{ weatherInfo.otherInfo.pressure }} hPa</p>
+        <p>Visibility - {{ weatherInfo.otherInfo.visibility / 1000 }} km</p>
       </div>
     </div>
   </div>

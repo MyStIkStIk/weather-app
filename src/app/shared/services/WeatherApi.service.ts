@@ -53,7 +53,8 @@ export class WeatherApiService {
             general: response.weather[0].main,
             otherInfo: {
               pressure: response.main.pressure,
-              humidity: response.main.humidity
+              humidity: response.main.humidity,
+              visibility: response.visibility
             } as OtherInfoModel,
             temperature: {
               temp: response.main.temp,
@@ -63,7 +64,8 @@ export class WeatherApiService {
             } as TemperatureModel,
             wind: {
               speed: response.wind.speed,
-              deg: response.wind.deg
+              deg: response.wind.deg,
+              gust: response.wind.gust
             } as WindModel
           } as WeatherModel;
         }),

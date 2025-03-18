@@ -12,6 +12,7 @@ export interface WeatherModel {
 export interface OtherInfoModel {
   pressure: number;
   humidity: number;
+  visibility: number;
 }
 
 export interface TemperatureModel {
@@ -24,4 +25,5 @@ export interface TemperatureModel {
 export interface WindModel {
   speed: number;
   deg: number;
+  gust: number;
 }
