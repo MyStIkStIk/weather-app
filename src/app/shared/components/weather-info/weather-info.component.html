@@ -1,4 +1,4 @@
-<ng-container *ngIf="weatherApiService.$weatherInfo | async as weatherInfo">
+@if (weatherApiService.weatherInfo(); as weatherInfo) {
   <div class="weather-info">
     <h3>{{ weatherInfo.city }}</h3>
     <img [src]="environment.weatherApiImgUrl + weatherInfo.icon + '.png'" alt="weather icon">
@@ -15,7 +15,7 @@
         <p>{{ weatherInfo.wind.speed }} m/s
           <span [innerHtml]="weatherInfo.wind.deg | windDirection"></span>
         </p>
-        <p>Gust - {{weatherInfo.wind.gust}} m/s</p>
+        <p>Gust - {{ weatherInfo.wind.gust }} m/s</p>
       </div>
       <div class="weather-info__item">
         <p>Other:</p>
@@ -25,4 +25,4 @@
       </div>
     </div>
   </div>
-</ng-container>
+}

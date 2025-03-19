@@ -1,8 +1,7 @@
-<div class="weather-container" [class]="weatherClass">
+<div class="weather-container" [class]="weatherApiService.weatherType()">
   <app-auto-complete [searchMethod]="searchMethod"
                      (selectedItemChange)="getWeatherInfo($event)"></app-auto-complete>
   <app-weather-info></app-weather-info>
 </div>
+
 <p-toast [life]="6000"></p-toast>
-
-

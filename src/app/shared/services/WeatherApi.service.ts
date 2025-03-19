@@ -1,8 +1,7 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, signal, WritableSignal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../environment/environment';
-import {BehaviorSubject, map, Observable, tap} from 'rxjs';
-import {KeyValue} from '@angular/common';
+import {environment} from '../../environment/environment';
+import {map, Observable, take, tap} from 'rxjs';
 import {OtherInfoModel, TemperatureModel, WeatherModel, WindModel} from '../models/WeatherModel';
 import {MessageService} from 'primeng/api';
 
@@ -18,11 +17,10 @@ export class WeatherApiService {
   private cache = new Map<string, { timestamp: number; data: WeatherModel }>();
   private cacheDuration = 10 * 60 * 1000;
 
-  weatherInfo!: WeatherModel;
-  weatherInfo$ = new BehaviorSubject(this.weatherInfo);
-  $weatherInfo = this.weatherInfo$.asObservable();
+  weatherInfo: WritableSignal<WeatherModel | null> = signal(null);
+  weatherType: WritableSignal<string> = signal('');
 
-  getCity(text: string): Observable<KeyValue<string, string>[]> {
+  getCity(text: string): Observable<{ key: string; value: string }[]> {
     return this.http.get<any[]>(
       `${environment.weatherApiGeoUrl}?q=${text}&limit=10&appid=${environment.weatherApiKey}`
     ).pipe(
@@ -73,7 +71,8 @@ export class WeatherApiService {
         }),
         tap((data: WeatherModel) => {
           this.cache.set(city, {timestamp: now, data: data});
-        })
+        }),
+        take(1)
       ).subscribe(
       data => this.setWeatherInfo(data),
       error => {
@@ -83,7 +82,7 @@ export class WeatherApiService {
   }
 
   setWeatherInfo(weatherInfo: WeatherModel) {
-    this.weatherInfo = weatherInfo;
-    this.weatherInfo$.next(this.weatherInfo);
+    this.weatherInfo.set(weatherInfo);
+    this.weatherType.set(weatherInfo.general.toLowerCase());
   }
 }

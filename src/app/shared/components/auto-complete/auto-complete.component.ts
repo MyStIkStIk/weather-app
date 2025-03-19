@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, inject, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, signal, WritableSignal} from '@angular/core';
 import {Observable, take} from 'rxjs';
 import {KeyValue} from '@angular/common';
 import {AutoComplete, AutoCompleteCompleteEvent} from 'primeng/autocomplete';
@@ -17,16 +17,14 @@ import {FormsModule} from '@angular/forms';
 export class AutoCompleteComponent {
   @Output() selectedItemChange = new EventEmitter<string>();
 
-  @Input() searchMethod!: (text: string) => Observable<KeyValue<string, string>[]>;
+  @Input() searchMethod!: (text: string) => Observable<{ key: string; value: string }[]>;
   @Input() minSearchLength = 1;
 
-  private readonly cdr = inject(ChangeDetectorRef);
-
-  items: KeyValue<string, string>[] = [];
+  items: WritableSignal<{ key: string; value: string }[]> = signal([]);
 
   selectedItem?: KeyValue<string, string>;
 
-  onSelect(item: any) {
+  onSelect(item: KeyValue<string, string>) {
     this.selectedItem = item;
     this.selectedItemChange.emit(this.selectedItem?.key);
   }
@@ -42,10 +40,9 @@ export class AutoCompleteComponent {
       this.searchMethod(text).pipe(
         take(1)
       ).subscribe((items) => {
-        this.items = items ?? [];
-        this.cdr.markForCheck();
+        this.items.set(items);
       });
     else
-      this.items = [];
+      this.items.set([]);
   }
 }
